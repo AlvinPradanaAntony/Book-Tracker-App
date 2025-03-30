@@ -1,0 +1,202 @@
+{
+  "books": [
+    {
+      "id": 1573,
+      "title": "The Art of Computer Programming",
+      "genre": "Technology",
+      "totalPage": 672,
+      "author": "Donald Knuth",
+      "status": "Currently Reading",
+      "readingProgress": 320,
+      "personalNote": "",
+      "bookAddedInMillis": 1691239200000
+    },
+    {
+      "id": 8234,
+      "title": "1984",
+      "genre": "Dystopian",
+      "totalPage": 328,
+      "author": "George Orwell",
+      "status": "Finished Reading",
+      "readingProgress": 328,
+      "personalNote": "A chilling portrayal of a totalitarian regime.",
+      "bookAddedInMillis": 1683225600000
+    },
+    {
+      "id": 4729,
+      "title": "To Kill a Mockingbird",
+      "genre": "Classic",
+      "totalPage": 281,
+      "author": "Harper Lee",
+      "status": "Want to Read",
+      "readingProgress": 0,
+      "personalNote": "Recommended by a friend.",
+      "bookAddedInMillis": 1680739200000
+    },
+    {
+      "id": 6572,
+      "title": "Brave New World",
+      "genre": "Dystopian",
+      "totalPage": 268,
+      "author": "Aldous Huxley",
+      "status": "Currently Reading",
+      "readingProgress": 125,
+      "personalNote": "",
+      "bookAddedInMillis": 1690041600000
+    },
+    {
+      "id": 9243,
+      "title": "The Catcher in the Rye",
+      "genre": "Classic",
+      "totalPage": 214,
+      "author": "J.D. Salinger",
+      "status": "Want to Read",
+      "readingProgress": 0,
+      "personalNote": "I've heard so much about this book.",
+      "bookAddedInMillis": 1678051200000
+    },
+    {
+      "id": 1932,
+      "title": "The Great Gatsby",
+      "genre": "Classic",
+      "totalPage": 180,
+      "author": "F. Scott Fitzgerald",
+      "status": "Finished Reading",
+      "readingProgress": 180,
+      "personalNote": "The American Dream dissected.",
+      "bookAddedInMillis": 1680921600000
+    },
+    {
+      "id": 8302,
+      "title": "Sapiens: A Brief History of Humankind",
+      "genre": "History",
+      "totalPage": 443,
+      "author": "Yuval Noah Harari",
+      "status": "Want to Read",
+      "readingProgress": 0,
+      "personalNote": "Looking forward to learning more about human evolution.",
+      "bookAddedInMillis": 1675564800000
+    },
+    {
+      "id": 3894,
+      "title": "Thinking, Fast and Slow",
+      "genre": "Psychology",
+      "totalPage": 499,
+      "author": "Daniel Kahneman",
+      "status": "Currently Reading",
+      "readingProgress": 220,
+      "personalNote": "",
+      "bookAddedInMillis": 1690185600000
+    },
+    {
+      "id": 7209,
+      "title": "Pride and Prejudice",
+      "genre": "Romance",
+      "totalPage": 279,
+      "author": "Jane Austen",
+      "status": "Finished Reading",
+      "readingProgress": 279,
+      "personalNote": "An absolute classic.",
+      "bookAddedInMillis": 1684636800000
+    },
+    {
+      "id": 6501,
+      "title": "The Hobbit",
+      "genre": "Fantasy",
+      "totalPage": 310,
+      "author": "J.R.R. Tolkien",
+      "status": "Want to Read",
+      "readingProgress": 0,
+      "personalNote": "Excited to explore Middle-earth.",
+      "bookAddedInMillis": 1679270400000
+    },
+    {
+      "id": 5328,
+      "title": "The Alchemist",
+      "genre": "Philosophy",
+      "totalPage": 208,
+      "author": "Paulo Coelho",
+      "status": "Finished Reading",
+      "readingProgress": 208,
+      "personalNote": "A tale of dreams and destiny.",
+      "bookAddedInMillis": 1676073600000
+    },
+    {
+      "id": 4157,
+      "title": "The Road",
+      "genre": "Post-apocalyptic",
+      "totalPage": 287,
+      "author": "Cormac McCarthy",
+      "status": "Currently Reading",
+      "readingProgress": 134,
+      "personalNote": "",
+      "bookAddedInMillis": 1690934400000
+    },
+    {
+      "id": 8472,
+      "title": "Catch-22",
+      "genre": "War",
+      "totalPage": 453,
+      "author": "Joseph Heller",
+      "status": "Want to Read",
+      "readingProgress": 0,
+      "personalNote": "A satirical look at war.",
+      "bookAddedInMillis": 1679376000000
+    },
+    {
+      "id": 5630,
+      "title": "Moby-Dick",
+      "genre": "Adventure",
+      "totalPage": 635,
+      "author": "Herman Melville",
+      "status": "Finished Reading",
+      "readingProgress": 635,
+      "personalNote": "Epic tale of obsession.",
+      "bookAddedInMillis": 1682035200000
+    },
+    {
+      "id": 3098,
+      "title": "The Brothers Karamazov",
+      "genre": "Philosophy",
+      "totalPage": 824,
+      "author": "Fyodor Dostoevsky",
+      "status": "Currently Reading",
+      "readingProgress": 360,
+      "personalNote": "",
+      "bookAddedInMillis": 1690646400000
+    },
+    {
+      "id": 7721,
+      "title": "Don Quixote",
+      "genre": "Adventure",
+      "totalPage": 940,
+      "author": "Miguel de Cervantes",
+      "status": "Want to Read",
+      "readingProgress": 0,
+      "personalNote": "The classic tale of chivalry.",
+      "bookAddedInMillis": 1674883200000
+    },
+    {
+      "id": 1016,
+      "title": "War and Peace",
+      "genre": "Historical Fiction",
+      "totalPage": 1225,
+      "author": "Leo Tolstoy",
+      "status": "Finished Reading",
+      "readingProgress": 1225,
+      "personalNote": "A monumental work.",
+      "bookAddedInMillis": 1681756800000
+    },
+    {
+      "id": 4659,
+      "title": "Crime and Punishment",
+      "genre": "Psychological Fiction",
+      "totalPage": 430,
+      "author": "Fyodor Dostoevsky",
+      "status": "Currently Reading",
+      "readingProgress": 210,
+      "personalNote": "",
+      "bookAddedInMillis": 1690646400000
+    }
+  ]
+}
