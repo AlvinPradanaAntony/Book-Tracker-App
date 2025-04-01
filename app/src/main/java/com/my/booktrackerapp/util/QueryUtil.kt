@@ -5,7 +5,7 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 object QueryUtil {
 
     fun sortedBookQuery(bookSortType: BookSortType): SimpleSQLiteQuery {
-        val query = StringBuilder().append("SELECT * FROM book ")
+        val query = StringBuilder().append("SELECT * FROM books ")
         when (bookSortType) {
             BookSortType.DATE_ADDED -> {
                 query.append("ORDER BY bookAddedInMillis DESC")

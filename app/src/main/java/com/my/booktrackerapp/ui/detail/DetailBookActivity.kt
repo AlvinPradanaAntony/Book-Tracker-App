@@ -62,17 +62,28 @@ class DetailBookActivity : AppCompatActivity() {
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory).get(DetailBookViewModel::class.java)
 
+        val bookId = intent.getIntExtra("BOOK_ID", -1)
+        if (bookId != -1) {
+            viewModel.setBookId(bookId)
+        }
+
         viewModel.book.observe(this) { book ->
             if (book != null) {
                 with(book) {
-
+                    tvBookTitleValue.text = title
+                    tvBookGenreValue.text = genre
+                    tvBookTotalPageValue.text = totalPage.toString()
+                    tvBookAuthorValue.text = author
+                    tvBookAddedValue.text = bookAddedInMillis.toString()
+                    tietReadingProgress.setText(readingProgress.toString())
+                    tietPersonalNote.setText(personalNote)
+                    spinnerBookStatusValue.setSelection(BookStatusType.valueOf(status).ordinal)
                 }
             }
         }
 
         viewModel.updated.observe(this) { event ->
             val updated = event.getContentIfNotHandled()
-
             if (updated == true) {
                 Toast.makeText(
                     this,
@@ -84,7 +95,6 @@ class DetailBookActivity : AppCompatActivity() {
 
         viewModel.deleted.observe(this) { event ->
             val deleted = event.getContentIfNotHandled()
-
             if (deleted == true) {
                 Toast.makeText(
                     this,
@@ -112,24 +122,16 @@ class DetailBookActivity : AppCompatActivity() {
                 ) {
                     when (position) {
                         1 -> {
-                            tilPersonalNote.visibility =
-                                View.GONE
-                            tilReadingProgress.visibility =
-                                View.VISIBLE
+                            tilPersonalNote.visibility = View.GONE
+                            tilReadingProgress.visibility = View.VISIBLE
                         }
-
                         2 -> {
-                            tilPersonalNote.visibility =
-                                View.VISIBLE
-                            tilReadingProgress.visibility =
-                                View.GONE
+                            tilPersonalNote.visibility = View.VISIBLE
+                            tilReadingProgress.visibility = View.GONE
                         }
-
                         else -> {
-                            tilReadingProgress.visibility =
-                                View.GONE
-                            tilPersonalNote.visibility =
-                                View.GONE
+                            tilReadingProgress.visibility = View.GONE
+                            tilPersonalNote.visibility = View.GONE
                         }
                     }
                 }
@@ -137,7 +139,14 @@ class DetailBookActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.btn_update).setOnClickListener {
+            val newReadingProgress = tietReadingProgress.text.toString().toIntOrNull() ?: 0
+            val newPersonalNote = tietPersonalNote.text.toString()
             val newStatus = BookStatusType.entries[spinnerBookStatusValue.selectedItemPosition]
+            if (newReadingProgress > tvBookTotalPageValue.text.toString().toInt()) {
+                Toast.makeText(this, R.string.invalid_reading_progress_input_message, Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel.updateBook(newStatus.value, newReadingProgress, newPersonalNote)
+            }
         }
     }
 
@@ -153,7 +162,7 @@ class DetailBookActivity : AppCompatActivity() {
                     setMessage(getString(R.string.delete_alert))
                     setNegativeButton(getString(R.string.no), null)
                     setPositiveButton(getString(R.string.yes)) { _, _ ->
-
+                        viewModel.deleteBook()
                     }
                     show()
                 }

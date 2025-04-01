@@ -9,6 +9,7 @@ import com.my.booktrackerapp.data.Book
 import com.my.booktrackerapp.data.BookRepository
 import com.my.booktrackerapp.util.BookSortType
 import com.my.booktrackerapp.util.Event
+import androidx.lifecycle.switchMap
 
 class ListBookViewModel(private val repository: BookRepository) : ViewModel() {
 
@@ -24,7 +25,9 @@ class ListBookViewModel(private val repository: BookRepository) : ViewModel() {
         _bookSortType.value = BookSortType.DATE_ADDED
     }
 
-    val books: LiveData<PagingData<Book>> = throw NotImplementedError("needs implementation")
+    val books: LiveData<PagingData<Book>> = _bookSortType.switchMap { sortType ->
+        repository.getAllBooks(sortType)
+    }
 
     fun changeBookSortType(bookSortType: BookSortType) {
         _bookSortType.value = bookSortType

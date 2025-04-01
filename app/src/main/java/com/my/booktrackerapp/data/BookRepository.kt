@@ -2,48 +2,60 @@ package com.my.booktrackerapp.data
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.my.booktrackerapp.util.BookSortType
+import com.my.booktrackerapp.util.BookStatusType
+import com.my.booktrackerapp.util.CURRENTLY_READING_VALUE
+import com.my.booktrackerapp.util.QueryUtil
+import kotlinx.coroutines.flow.Flow
 import java.util.concurrent.Executors
 
 class BookRepository(private val bookDao: BookDao) {
 
     fun getListOfCurrentlyReadBooks(): LiveData<List<Book>> =
-        throw NotImplementedError("needs implementation")
+        bookDao.getListOfBookByReadingStatus(CURRENTLY_READING_VALUE)
 
-    fun getListOfBookByReadingStatus(status: String): LiveData<List<Book>> {
-        throw NotImplementedError("needs implementation")
-    }
+    fun getListOfBookByReadingStatus(status: BookStatusType): LiveData<List<Book>>  =
+        bookDao.getListOfBookByReadingStatus(status.value)
 
     fun getAllBooks(bookSortType: BookSortType): LiveData<PagingData<Book>> {
-        throw NotImplementedError("needs implementation")
+        val query = QueryUtil.sortedBookQuery(bookSortType)
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                enablePlaceholders = ENABLE_PLACEHOLDER
+            ),
+            pagingSourceFactory = { bookDao.getAllBooks(query) }
+        ).liveData
     }
 
     fun insertBook(book: Book) {
         executeThread {
-            throw NotImplementedError("needs implementation")
+            bookDao.insertBook(book)
         }
     }
 
     fun getBook(bookId: Int): LiveData<Book?> =
-        throw NotImplementedError("needs implementation")
+        bookDao.getBook(bookId)
 
-    fun updateBook(
-        updatedBook: Book
-    ) {
+    fun updateBook(updatedBook: Book) {
         executeThread {
-            throw NotImplementedError("needs implementation")
+            bookDao.updateBook(updatedBook)
         }
     }
 
     fun deleteBook(book: Book) {
         executeThread {
-            throw NotImplementedError("needs implementation")
+            bookDao.deleteBook(book)
         }
     }
 
     fun getTotalOfCurrentlyReadBooks() =
-        throw NotImplementedError("needs implementation")
+        bookDao.getTotalOfCurrentlyReadBooks()
 
     private fun executeThread(f: () -> Unit) {
         Executors.newSingleThreadExecutor().execute(f)
@@ -67,6 +79,5 @@ class BookRepository(private val bookDao: BookDao) {
             }
         }
     }
-
 }
 

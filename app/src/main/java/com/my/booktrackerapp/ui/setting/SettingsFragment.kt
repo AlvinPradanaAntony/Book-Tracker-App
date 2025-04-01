@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.my.booktrackerapp.R
+import com.my.booktrackerapp.util.NightMode
+import java.util.Locale
 
-class SettingsFragment : PreferenceFragmentCompat() {
+class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     private lateinit var prefManager: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
@@ -21,6 +23,24 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onAttach(context)
         prefManager = PreferenceManager.getDefaultSharedPreferences(requireContext())
         editor = prefManager.edit()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        prefManager.registerOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        prefManager.unregisterOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
+        if (key == getString(R.string.pref_key_dark)) {
+            val mode = sharedPreferences.getString(key, getString(R.string.pref_dark_auto))
+            updateTheme(NightMode.valueOf(mode!!.uppercase(Locale.US)).value)
+            (activity as? SettingsActivity)?.showToast(getString(R.string.pref_dark_title) + " updated")
+        }
     }
 
     private fun updateTheme(nightMode: Int): Boolean {

@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.my.booktrackerapp.R
 import com.my.booktrackerapp.customview.CurrentlyReadBookView
 import com.my.booktrackerapp.ui.ViewModelFactory
+import com.my.booktrackerapp.ui.detail.DetailBookActivity
 import com.my.booktrackerapp.ui.list.ListBookActivity
 import com.my.booktrackerapp.ui.setting.SettingsActivity
 import com.my.booktrackerapp.ui.status.StatusBookActivity
@@ -26,6 +27,15 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
         currentlyReadBookView = findViewById(R.id.customRVCurrentlyReadBookView)
+        viewModel.listOfCurrentlyReadBook.observe(this) { books ->
+            currentlyReadBookView.submitData(books)
+        }
+        currentlyReadBookView.setAdapterItemClickCallback { book ->
+            val intent = Intent(this, DetailBookActivity::class.java).apply {
+                putExtra("BOOK_ID", book.id)
+            }
+            startActivity(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

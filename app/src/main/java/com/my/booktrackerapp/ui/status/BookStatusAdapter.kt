@@ -43,9 +43,9 @@ class BookStatusAdapter(private val onItemClickListener: (Book) -> Unit) :
 
     inner class PagerViewHolder internal constructor(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
-
+        private val recyclerView: RecyclerView = itemView.findViewById(R.id.rv_status_books)
         fun bind(pageData: List<Book>, onItemClickListener: (Book) -> Unit) {
-
+            recyclerView.adapter = BookStatusItemAdapter(pageData, onItemClickListener)
         }
 
     }

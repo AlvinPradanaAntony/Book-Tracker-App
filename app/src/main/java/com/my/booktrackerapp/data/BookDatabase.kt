@@ -1,8 +1,14 @@
 package com.my.booktrackerapp.data
 
 import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.my.booktrackerapp.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -10,6 +16,7 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 
+@Database(entities = [Book::class], version = 1, exportSchema = false)
 abstract class BookDatabase : RoomDatabase() {
 
     abstract fun bookDao(): BookDao
@@ -20,7 +27,25 @@ abstract class BookDatabase : RoomDatabase() {
         private var INSTANCE: BookDatabase? = null
 
         fun getInstance(context: Context): BookDatabase {
-            return INSTANCE
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    BookDatabase::class.java,
+                    "book.db"
+                ).fallbackToDestructiveMigration()
+                    .addCallback(object : Callback() {
+                        override fun onCreate(db: SupportSQLiteDatabase) {
+                            super.onCreate(db)
+                            INSTANCE?.let { database ->
+                                CoroutineScope(Dispatchers.IO).launch {
+                                    fillWithStartingData(context, database.bookDao())
+                                }
+                            }
+                        }
+                    }).build()
+                INSTANCE = instance
+                instance
+            }
         }
 
         private fun fillWithStartingData(context: Context, dao: BookDao) {
@@ -67,7 +92,5 @@ abstract class BookDatabase : RoomDatabase() {
             }
             return null
         }
-
     }
-
 }

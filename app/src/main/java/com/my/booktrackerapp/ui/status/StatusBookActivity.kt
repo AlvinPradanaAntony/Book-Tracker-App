@@ -1,5 +1,6 @@
 package com.my.booktrackerapp.ui.status
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -8,6 +9,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.my.booktrackerapp.R
 import com.my.booktrackerapp.ui.ViewModelFactory
+import com.my.booktrackerapp.ui.detail.DetailBookActivity
 import com.my.booktrackerapp.util.BookStatusType
 import com.my.booktrackerapp.util.CURRENTLY_READING_VALUE
 import com.my.booktrackerapp.util.FINISHED_READING_VALUE
@@ -17,9 +19,7 @@ class StatusBookActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var adapter: BookStatusAdapter
-
     private lateinit var tabsLayout: TabLayout
-
     private lateinit var viewModel: StatusBookViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,8 +34,15 @@ class StatusBookActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, factory).get(StatusBookViewModel::class.java)
 
         viewPager = findViewById(R.id.view_pager)
-
         tabsLayout = findViewById(R.id.tabs)
+
+        adapter = BookStatusAdapter { book ->
+            val intent = Intent(this, DetailBookActivity::class.java).apply {
+                putExtra("BOOK_ID", book.id)
+            }
+            startActivity(intent)
+        }
+        viewPager.adapter = adapter
 
         TabLayoutMediator(tabsLayout, viewPager) { tab, position ->
             viewPager.setCurrentItem(viewModel.tabPosition, true)

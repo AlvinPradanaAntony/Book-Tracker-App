@@ -2,6 +2,7 @@ package com.my.booktrackerapp.customview
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,7 +40,15 @@ class CurrentlyReadBookView @JvmOverloads constructor(
     }
 
     fun submitData(newData: List<Book>) {
-        invalidate()
+        //        invalidate()
+        if (newData.isEmpty()) {
+            rvCurrentlyReadBooks.visibility = View.GONE
+            tvEmptyCurrentlyReadBooks.visibility = View.VISIBLE
+        } else {
+            rvCurrentlyReadBooks.visibility = View.VISIBLE
+            tvEmptyCurrentlyReadBooks.visibility = View.GONE
+            adapterCurrentlyReadBooks.submitData(newData)
+        }
     }
 
 }
