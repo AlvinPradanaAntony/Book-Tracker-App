@@ -1,6 +1,7 @@
 package com.my.booktrackerapp.ui.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -17,7 +18,10 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.my.booktrackerapp.R
 import com.my.booktrackerapp.ui.ViewModelFactory
+import com.my.booktrackerapp.util.BOOK_ID
 import com.my.booktrackerapp.util.BookStatusType
+import com.my.booktrackerapp.util.toBookStatusType
+import kotlin.math.log
 
 class DetailBookActivity : AppCompatActivity() {
 
@@ -62,23 +66,29 @@ class DetailBookActivity : AppCompatActivity() {
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory).get(DetailBookViewModel::class.java)
 
-        val bookId = intent.getIntExtra("BOOK_ID", -1)
+        val bookId = intent.getIntExtra(BOOK_ID, -1)
         if (bookId != -1) {
             viewModel.setBookId(bookId)
         }
 
         viewModel.book.observe(this) { book ->
-            if (book != null) {
-                with(book) {
-                    tvBookTitleValue.text = title
-                    tvBookGenreValue.text = genre
-                    tvBookTotalPageValue.text = totalPage.toString()
-                    tvBookAuthorValue.text = author
-                    tvBookAddedValue.text = bookAddedInMillis.toString()
-                    tietReadingProgress.setText(readingProgress.toString())
-                    tietPersonalNote.setText(personalNote)
-                    spinnerBookStatusValue.setSelection(BookStatusType.valueOf(status).ordinal)
+            try {
+                if (book != null) {
+                    Log.d("DetailBookActivity", "Book details: $book")
+                    with(book) {
+                        tvBookTitleValue.text = title
+                        tvBookGenreValue.text = genre
+                        tvBookTotalPageValue.text = totalPage.toString()
+                        tvBookAuthorValue.text = author
+                        tvBookAddedValue.text = bookAddedInMillis.toString()
+                        tietReadingProgress.setText(readingProgress.toString())
+                        tietPersonalNote.setText(personalNote)
+                        val bookStatusType = status.toBookStatusType()
+                        spinnerBookStatusValue.setSelection(bookStatusType.ordinal)
+                    }
                 }
+            } catch (e: Exception) {
+                Log.e("DetailBookActivity", "Error updating book details: ${e.message}", e)
             }
         }
 

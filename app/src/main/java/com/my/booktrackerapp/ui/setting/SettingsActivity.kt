@@ -20,7 +20,7 @@ class SettingsActivity : AppCompatActivity() {
             .commit()
     }
 
-     fun showToast(message: String) {
+    fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

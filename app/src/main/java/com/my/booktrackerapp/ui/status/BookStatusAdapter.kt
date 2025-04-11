@@ -3,6 +3,7 @@ package com.my.booktrackerapp.ui.status
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.my.booktrackerapp.R
 import com.my.booktrackerapp.data.Book
@@ -45,6 +46,7 @@ class BookStatusAdapter(private val onItemClickListener: (Book) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
         private val recyclerView: RecyclerView = itemView.findViewById(R.id.rv_status_books)
         fun bind(pageData: List<Book>, onItemClickListener: (Book) -> Unit) {
+            recyclerView.layoutManager = LinearLayoutManager(itemView.context)
             recyclerView.adapter = BookStatusItemAdapter(pageData, onItemClickListener)
         }
 

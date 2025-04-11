@@ -13,6 +13,7 @@ import com.my.booktrackerapp.ui.detail.DetailBookActivity
 import com.my.booktrackerapp.ui.list.ListBookActivity
 import com.my.booktrackerapp.ui.setting.SettingsActivity
 import com.my.booktrackerapp.ui.status.StatusBookActivity
+import com.my.booktrackerapp.util.BOOK_ID
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val factory = ViewModelFactory.getInstance(this)
-        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
 
         currentlyReadBookView = findViewById(R.id.customRVCurrentlyReadBookView)
         viewModel.listOfCurrentlyReadBook.observe(this) { books ->
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         }
         currentlyReadBookView.setAdapterItemClickCallback { book ->
             val intent = Intent(this, DetailBookActivity::class.java).apply {
-                putExtra("BOOK_ID", book.id)
+                putExtra(BOOK_ID, book.id)
             }
             startActivity(intent)
         }

@@ -2,6 +2,7 @@ package com.my.booktrackerapp.ui.status
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -10,6 +11,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.my.booktrackerapp.R
 import com.my.booktrackerapp.ui.ViewModelFactory
 import com.my.booktrackerapp.ui.detail.DetailBookActivity
+import com.my.booktrackerapp.util.BOOK_ID
 import com.my.booktrackerapp.util.BookStatusType
 import com.my.booktrackerapp.util.CURRENTLY_READING_VALUE
 import com.my.booktrackerapp.util.FINISHED_READING_VALUE
@@ -31,14 +33,14 @@ class StatusBookActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         val factory = ViewModelFactory.getInstance(this)
-        viewModel = ViewModelProvider(this, factory).get(StatusBookViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory)[StatusBookViewModel::class.java]
 
         viewPager = findViewById(R.id.view_pager)
         tabsLayout = findViewById(R.id.tabs)
 
         adapter = BookStatusAdapter { book ->
             val intent = Intent(this, DetailBookActivity::class.java).apply {
-                putExtra("BOOK_ID", book.id)
+                putExtra(BOOK_ID, book.id)
             }
             startActivity(intent)
         }
@@ -54,21 +56,25 @@ class StatusBookActivity : AppCompatActivity() {
             }
         }.attach()
 
+
         viewModel.statusWantToRead.observe(this) {
             if (it != null) {
                 adapter.submitData(BookStatusType.WANT_TO_READ, it)
+                Log.d("StatusBookActivity", "Want to Read Books: $it")
             }
         }
 
         viewModel.statusCurrentlyReading.observe(this) {
             if (it != null) {
                 adapter.submitData(BookStatusType.CURRENTLY_READING, it)
+                Log.d("StatusBookActivity", "Currently Reading Books: $it")
             }
         }
 
         viewModel.statusFinishedReading.observe(this) {
             if (it != null) {
                 adapter.submitData(BookStatusType.FINISHED_READING, it)
+                Log.d("StatusBookActivity", "Finished Reading Books: $it")
             }
         }
     }
