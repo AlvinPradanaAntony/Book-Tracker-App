@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,10 +20,10 @@ import com.my.booktrackerapp.data.Book
 import com.my.booktrackerapp.ui.ViewModelFactory
 import com.my.booktrackerapp.ui.add.AddBookActivity
 import com.my.booktrackerapp.ui.detail.DetailBookActivity
+import com.my.booktrackerapp.util.BOOK_ID
 import com.my.booktrackerapp.util.BookSortType
 import com.my.booktrackerapp.util.Event
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.flow.collectLatest
+
 
 class ListBookActivity : AppCompatActivity() {
 
@@ -47,7 +47,7 @@ class ListBookActivity : AppCompatActivity() {
         tvEmptyList = findViewById(R.id.tv_empty_list)
         adapterBooks = BookAdapter { book ->
             val intent = Intent(this, DetailBookActivity::class.java).apply {
-                putExtra("BOOK_ID", book.id)
+                putExtra(BOOK_ID, book.id)
             }
             startActivity(intent)
         }
@@ -57,12 +57,19 @@ class ListBookActivity : AppCompatActivity() {
 
         ItemTouchHelper(ItemTouchCallBack()).attachToRecyclerView(rvListBooks)
 
-        viewModel.books.observe(this) { pagingData ->
-            adapterBooks.submitData(lifecycle, pagingData)
-            if (adapterBooks.itemCount == 0) {
-                tvEmptyList.visibility = View.VISIBLE
-            } else {
-                tvEmptyList.visibility = View.GONE
+        viewModel.books.observe(this) {
+            adapterBooks.submitData(lifecycle, it)
+            adapterBooks.addLoadStateListener { states ->
+                if (states.refresh is LoadState.NotLoading) {
+                    val isEmpty = adapterBooks.itemCount == 0
+                    if (!isEmpty) {
+                        rvListBooks.visibility = View.VISIBLE
+                        tvEmptyList.visibility = View.GONE
+                    } else {
+                        rvListBooks.visibility = View.GONE
+                        tvEmptyList.visibility = View.VISIBLE
+                    }
+                }
             }
         }
 
