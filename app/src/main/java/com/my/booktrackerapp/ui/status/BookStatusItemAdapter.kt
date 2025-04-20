@@ -1,6 +1,5 @@
 package com.my.booktrackerapp.ui.status
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.my.booktrackerapp.R
 import com.my.booktrackerapp.data.Book
-import com.my.booktrackerapp.util.BookStatusType
 
 class BookStatusItemAdapter(
     private val items: List<Book>,

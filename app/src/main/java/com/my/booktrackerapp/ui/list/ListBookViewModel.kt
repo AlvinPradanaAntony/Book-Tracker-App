@@ -3,13 +3,13 @@ package com.my.booktrackerapp.ui.list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import androidx.paging.PagingData
 import com.my.booktrackerapp.R
 import com.my.booktrackerapp.data.Book
 import com.my.booktrackerapp.data.BookRepository
 import com.my.booktrackerapp.util.BookSortType
 import com.my.booktrackerapp.util.Event
-import androidx.lifecycle.switchMap
 
 class ListBookViewModel(private val repository: BookRepository) : ViewModel() {
 

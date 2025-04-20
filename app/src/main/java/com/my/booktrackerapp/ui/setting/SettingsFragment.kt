@@ -1,7 +1,9 @@
 package com.my.booktrackerapp.ui.setting
 
+import android.Manifest
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
@@ -13,8 +15,6 @@ import androidx.preference.SwitchPreference
 import com.my.booktrackerapp.R
 import com.my.booktrackerapp.notification.DailyReminder
 import com.my.booktrackerapp.util.NightMode
-import android.Manifest
-import android.content.pm.PackageManager
 
 class SettingsFragment : PreferenceFragmentCompat() {
 

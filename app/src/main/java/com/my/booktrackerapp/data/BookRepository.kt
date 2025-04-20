@@ -2,7 +2,6 @@ package com.my.booktrackerapp.data
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -11,7 +10,6 @@ import com.my.booktrackerapp.util.BookSortType
 import com.my.booktrackerapp.util.BookStatusType
 import com.my.booktrackerapp.util.CURRENTLY_READING_VALUE
 import com.my.booktrackerapp.util.QueryUtil
-import kotlinx.coroutines.flow.Flow
 import java.util.concurrent.Executors
 
 class BookRepository(private val bookDao: BookDao) {
