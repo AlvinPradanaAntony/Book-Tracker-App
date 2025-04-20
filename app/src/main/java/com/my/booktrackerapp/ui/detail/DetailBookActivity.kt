@@ -21,7 +21,6 @@ import com.my.booktrackerapp.ui.ViewModelFactory
 import com.my.booktrackerapp.util.BOOK_ID
 import com.my.booktrackerapp.util.BookStatusType
 import com.my.booktrackerapp.util.toBookStatusType
-import kotlin.math.log
 
 class DetailBookActivity : AppCompatActivity() {
 
